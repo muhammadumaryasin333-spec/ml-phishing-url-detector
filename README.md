@@ -54,6 +54,29 @@ To deactivate the environment when done:
 deactivate
 ```
 
+## Week 2 Progress
+
+- Dataset source identified: **PhiUSIIL Phishing URL Dataset** from the UCI Machine Learning Repository.
+- Dataset download location prepared: `data/raw/`
+- Basic data exploration script added: `src/data_exploration.py`
+- Dataset summary and class distribution output planned in `reports/`
+- No ML model training yet.
+
+### How to run dataset exploration
+
+First download the PhiUSIIL Phishing URL Dataset from the UCI ML Repository and place the CSV at `data/raw/PhiUSIIL_Phishing_URL_Dataset.csv`. Then:
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+python src/data_exploration.py
+```
+
+Outputs:
+
+- `reports/dataset_summary.txt`
+- `reports/class_distribution.png`
+
 ## Progress Tracker
 
 - [ ] Initial repo setup

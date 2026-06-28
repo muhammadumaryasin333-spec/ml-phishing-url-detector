@@ -23,17 +23,6 @@ ENV/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Datasets
-data/raw/*
-data/processed/*
-!data/raw/.gitkeep
-!data/processed/.gitkeep
-*.csv
-*.tsv
-*.json
-*.parquet
-*.feather
-
 # Models
 models/*
 !models/.gitkeep
@@ -43,12 +32,6 @@ models/*
 *.pt
 *.pth
 *.onnx
-
-# Reports / outputs
-reports/*
-!reports/.gitkeep
-
-# Tooling artifacts
 .patchman-review-mode.json
 
 # IDE / OS
