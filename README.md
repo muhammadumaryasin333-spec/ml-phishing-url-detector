@@ -14,11 +14,11 @@ This project aims to detect phishing URLs and websites using machine learning. B
 .
 ├── README.md            # Project overview and progress tracking
 ├── requirements.txt     # Starter Python dependencies
-├── .gitignore           # Python, venv, datasets, notebooks, models
+├── .gitignore           # Python, venv, datasets, reports, models
 ├── data/
 │   ├── raw/             # Original, immutable datasets
 │   └── processed/       # Cleaned / feature-engineered datasets
-├── notebooks/           # Jupyter notebooks for exploration
+├── notebooks/           # Reserved folder; current workflow uses Python scripts
 ├── src/                 # Source code (Python package)
 │   └── __init__.py
 ├── models/              # Trained model artifacts
@@ -44,8 +44,6 @@ source venv/bin/activate        # macOS / Linux
 pip install --upgrade pip
 pip install -r requirements.txt
 
-# 5. (Optional) register a Jupyter kernel
-python -m ipykernel install --user --name phishing-detector
 ```
 
 To deactivate the environment when done:
@@ -77,12 +75,45 @@ Outputs:
 - `reports/dataset_summary.txt`
 - `reports/class_distribution.png`
 
+## Pre-IPR EDA and Preprocessing Progress
+
+- Dataset downloaded and added at `data/raw/PhiUSIIL_Phishing_URL_Dataset.csv`
+- Initial exploration completed
+- Complete EDA script added: `src/eda_analysis.py`
+- Class distribution charts generated
+- Correlation heatmap generated
+- Missing values and duplicate checks completed
+- Outlier summary prepared
+- Feature grouping prepared
+- Cleaned dataset generated
+- Train/validation/test split prepared
+- No model training yet
+
+Run the pre-IPR workflow:
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+
+python src/eda_analysis.py
+python src/preprocess_data.py
+```
+
+Output locations:
+
+```text
+reports/eda/
+reports/eda/figures/
+reports/eda/tables/
+data/processed/
+```
+
 ## Progress Tracker
 
-- [ ] Initial repo setup
-- [ ] Dataset download
-- [ ] Data exploration
-- [ ] Preprocessing
+- [x] Initial repo setup
+- [x] Dataset download
+- [x] Data exploration
+- [x] Preprocessing preparation
 - [ ] Baseline ML models
 - [ ] Evaluation metrics
 - [ ] SHAP explainability
@@ -90,11 +121,10 @@ Outputs:
 
 ## Next Steps
 
-1. Select and download a phishing/legitimate URL dataset into `data/raw/`.
-2. Explore the data in `notebooks/` and document initial findings.
-3. Build a preprocessing and feature-extraction pipeline in `src/`.
-4. Train baseline ML models and record evaluation metrics in `reports/`.
-5. Add transformer-based features and SHAP explanations.
-6. Wrap the best model in a demo app under `app/`.
+1. Review pre-IPR EDA outputs and select modelling features.
+2. Replace placeholder high-cardinality label encoding with a fitted preprocessing pipeline or URL/text feature extraction.
+3. Train baseline ML models and record evaluation metrics in `reports/`.
+4. Add transformer-based features and SHAP explanations.
+5. Wrap the best model in a demo app under `app/`.
 
 > Heavier dependencies (transformers, torch, xgboost, lightgbm, shap, streamlit) will be added to `requirements.txt` as each stage requires them.

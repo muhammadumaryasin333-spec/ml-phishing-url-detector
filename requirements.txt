@@ -3,5 +3,4 @@ numpy
 scikit-learn
 matplotlib
 seaborn
-jupyter
 python-dotenv

@@ -1,0 +1,168 @@
+PhiUSIIL Phishing URL Dataset - Complete EDA Overview
+============================================================
+Source file: /Users/mac/Work/Study/Project-Masters/ml-phishing-url-detector/data/raw/PhiUSIIL_Phishing_URL_Dataset.csv
+Dataset shape: (235795, 56)
+Number of rows: 235,795
+Number of columns: 56
+Memory usage: 175.17 MB
+
+Column names:
+  - FILENAME
+  - URL
+  - URLLength
+  - Domain
+  - DomainLength
+  - IsDomainIP
+  - TLD
+  - URLSimilarityIndex
+  - CharContinuationRate
+  - TLDLegitimateProb
+  - URLCharProb
+  - TLDLength
+  - NoOfSubDomain
+  - HasObfuscation
+  - NoOfObfuscatedChar
+  - ObfuscationRatio
+  - NoOfLettersInURL
+  - LetterRatioInURL
+  - NoOfDegitsInURL
+  - DegitRatioInURL
+  - NoOfEqualsInURL
+  - NoOfQMarkInURL
+  - NoOfAmpersandInURL
+  - NoOfOtherSpecialCharsInURL
+  - SpacialCharRatioInURL
+  - IsHTTPS
+  - LineOfCode
+  - LargestLineLength
+  - HasTitle
+  - Title
+  - DomainTitleMatchScore
+  - URLTitleMatchScore
+  - HasFavicon
+  - Robots
+  - IsResponsive
+  - NoOfURLRedirect
+  - NoOfSelfRedirect
+  - HasDescription
+  - NoOfPopup
+  - NoOfiFrame
+  - HasExternalFormSubmit
+  - HasSocialNet
+  - HasSubmitButton
+  - HasHiddenFields
+  - HasPasswordField
+  - Bank
+  - Pay
+  - Crypto
+  - HasCopyrightInfo
+  - NoOfImage
+  - NoOfCSS
+  - NoOfJS
+  - NoOfSelfRef
+  - NoOfEmptyRef
+  - NoOfExternalRef
+  - label
+
+Data types:
+  - FILENAME: str
+  - URL: str
+  - URLLength: int64
+  - Domain: str
+  - DomainLength: int64
+  - IsDomainIP: int64
+  - TLD: str
+  - URLSimilarityIndex: float64
+  - CharContinuationRate: float64
+  - TLDLegitimateProb: float64
+  - URLCharProb: float64
+  - TLDLength: int64
+  - NoOfSubDomain: int64
+  - HasObfuscation: int64
+  - NoOfObfuscatedChar: int64
+  - ObfuscationRatio: float64
+  - NoOfLettersInURL: int64
+  - LetterRatioInURL: float64
+  - NoOfDegitsInURL: int64
+  - DegitRatioInURL: float64
+  - NoOfEqualsInURL: int64
+  - NoOfQMarkInURL: int64
+  - NoOfAmpersandInURL: int64
+  - NoOfOtherSpecialCharsInURL: int64
+  - SpacialCharRatioInURL: float64
+  - IsHTTPS: int64
+  - LineOfCode: int64
+  - LargestLineLength: int64
+  - HasTitle: int64
+  - Title: str
+  - DomainTitleMatchScore: float64
+  - URLTitleMatchScore: float64
+  - HasFavicon: int64
+  - Robots: int64
+  - IsResponsive: int64
+  - NoOfURLRedirect: int64
+  - NoOfSelfRedirect: int64
+  - HasDescription: int64
+  - NoOfPopup: int64
+  - NoOfiFrame: int64
+  - HasExternalFormSubmit: int64
+  - HasSocialNet: int64
+  - HasSubmitButton: int64
+  - HasHiddenFields: int64
+  - HasPasswordField: int64
+  - Bank: int64
+  - Pay: int64
+  - Crypto: int64
+  - HasCopyrightInfo: int64
+  - NoOfImage: int64
+  - NoOfCSS: int64
+  - NoOfJS: int64
+  - NoOfSelfRef: int64
+  - NoOfEmptyRef: int64
+  - NoOfExternalRef: int64
+  - label: int64
+
+First few rows summary:
+  FILENAME                                URL  URLLength                     Domain  DomainLength  IsDomainIP TLD  URLSimilarityIndex  CharContinuationRate  TLDLegitimateProb  URLCharProb  TLDLength  NoOfSubDomain  HasObfuscation  NoOfObfuscatedChar  ObfuscationRatio  NoOfLettersInURL  LetterRatioInURL  NoOfDegitsInURL  DegitRatioInURL  NoOfEqualsInURL  NoOfQMarkInURL  NoOfAmpersandInURL  NoOfOtherSpecialCharsInURL  SpacialCharRatioInURL  IsHTTPS  LineOfCode  LargestLineLength  HasTitle                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   Title  DomainTitleMatchScore  URLTitleMatchScore  HasFavicon  Robots  IsResponsive  NoOfURLRedirect  NoOfSelfRedirect  HasDescription  NoOfPopup  NoOfiFrame  HasExternalFormSubmit  HasSocialNet  HasSubmitButton  HasHiddenFields  HasPasswordField  Bank  Pay  Crypto  HasCopyrightInfo  NoOfImage  NoOfCSS  NoOfJS  NoOfSelfRef  NoOfEmptyRef  NoOfExternalRef  label
+521848.txt   https://www.southbankmosaics.com         31   www.southbankmosaics.com            24           0 com               100.0              1.000000           0.522907     0.061933          3              1               0                   0               0.0                18             0.581                0              0.0                0               0                   0                           1                  0.032        1         558               9381         1 à¸‚à¹ˆà¸²à¸§à¸ªà¸” à¸‚à¹ˆà¸²à¸§à¸§à¸±à¸™à¸™à¸µà¹‰ à¸‚à¹ˆà¸²à¸§à¸à¸µà¸¬à¸² à¸‚à¹ˆà¸²à¸§à¸šà¸±à¸™à¹€à¸—à¸´à¸‡ à¸­à¸±à¸žà¹€à¸”à¸—à¸ªà¸”à¹ƒà¸«à¸¡à¹ˆà¸—à¸¸à¸à¸§à¸±à¸™ &#8211; à¸‚à¹ˆà¸²à¸§à¸ªà¸” à¸‚à¹ˆà¸²à¸§à¸à¸µà¸¬à¸² à¸‚à¹ˆà¸²à¸§à¸šà¸±à¸™à¹€à¸—à¸´à¸‡ à¸‚à¹ˆà¸²à¸§à¸§à¸±à¸™à¸™à¸µà¹‰ à¸­à¸±à¸›à¹€à¸”à¸•à¸‚à¹ˆà¸²à¸§à¸ªà¸²à¸£à¸£à¸§à¸”à¹€à¸£à¹‡à¸§à¸—à¸±à¸™à¹ƒà¸ˆ à¸žà¸£à¹‰à¸­à¸¡à¸£à¸±à¸šà¸Šà¸¡à¸ªà¸²à¸£à¸°à¸™à¹ˆà¸²à¸£à¸¹à¹‰à¸•à¹ˆà¸²à¸‡à¹† à¹„à¸”à¹‰à¸Ÿà¸£à¸µà¸•à¸¥à¸­à¸” 24à¸Šà¸±à¹ˆà¸§à¹‚à¸¡à¸‡               0.000000            0.000000           0       1             1                0                 0               0          0           1                      0             0                1                1                 0     1    0       0                 1         34       20      28          119             0              124      1
+ 31372.txt           https://www.uni-mainz.de         23           www.uni-mainz.de            16           0  de               100.0              0.666667           0.032650     0.050207          2              1               0                   0               0.0                 9             0.391                0              0.0                0               0                   0                           2                  0.087        1         618               9381         1                                                                                                                                                                                                                                                                                                                                                                                                                                                                   johannes gutenberg-universitÃ¤t mainz              55.555556           55.555556           1       1             0                0                 0               0          0           0                      0             1                1                0                 0     0    0       0                 1         50        9       8           39             0              217      1
+597387.txt     https://www.voicefmradio.co.uk         29     www.voicefmradio.co.uk            22           0  uk               100.0              0.866667           0.028555     0.064129          2              2               0                   0               0.0                15             0.517                0              0.0                0               0                   0                           2                  0.069        1         467                682         1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    voice fm southampton              46.666667           46.666667           0       1             1                0                 0               1          0           0                      0             0                1                1                 0     0    0       0                 1         10        2       7           42             2                5      1
+554095.txt        https://www.sfnmjournal.com         26        www.sfnmjournal.com            19           0 com               100.0              1.000000           0.522907     0.057606          3              1               0                   0               0.0                13             0.500                0              0.0                0               0                   0                           1                  0.038        1        6356              26824         1                                                                                                                                                                                                                                                                                                                                                                                                                                                     home page: seminars in fetal and neonatal medicine                0.000000            0.000000           0       1             1                0                 0               0          1          12                      0             1                1                1                 0     0    1       1                 1          3       27      15           22             1               31      1
+151578.txt https://www.rewildingargentina.org         33 www.rewildingargentina.org            26           0 org               100.0              1.000000           0.079963     0.059441          3              1               0                   0               0.0                20             0.606                0              0.0                0               0                   0                           1                  0.030        1        6089              28404         1                                                                                                                                                                                                                                                                                                                                                                                                                                                                          fundaciÃ³n rewilding argentina             100.000000          100.000000           0       1             1                1                 1               1          0           2                      0             1                1                1                 0     1    1       0                 1        244       15      34           72             1               85      1
+
+Target column name: label
+Target class meaning for this dataset:
+  - 1 = legitimate
+  - 0 = phishing
+Target class distribution:
+  - 0 (phishing): 100,945 rows (42.81%)
+  - 1 (legitimate): 134,850 rows (57.19%)
+
+Duplicate row count: 0
+
+Missing value summary:
+  - No missing values were found in the dataset.
+
+Number of numeric columns: 51
+Number of categorical/object columns: 5
+Constant columns:
+  - None
+High-cardinality categorical/object columns:
+  - FILENAME: 235,795 unique values
+  - URL: 235,370 unique values
+  - Domain: 220,086 unique values
+  - TLD: 695 unique values
+  - Title: 197,874 unique values
+
+Feature group analysis:
+  Features were grouped with simple keyword rules based on column names. This is for EDA organization only; unknown or ambiguous columns are left in an other group.
+  - Character-based features: 2 columns
+  - Content/title-related features: 6 columns
+  - Domain-related features: 9 columns
+  - Other categorical/text features: 1 columns
+  - URL structure features: 24 columns
+  - Webpage/source-code features: 13 columns
+  - target: 1 columns
+
+EDA note:
+  No rows or columns were removed by this EDA script. Highly correlated features and outliers are reported for later feature selection planning only.

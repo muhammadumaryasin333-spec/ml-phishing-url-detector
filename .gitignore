@@ -19,10 +19,6 @@ ENV/
 .env
 .env.*
 
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb_checkpoints
-
 # Models
 models/*
 !models/.gitkeep

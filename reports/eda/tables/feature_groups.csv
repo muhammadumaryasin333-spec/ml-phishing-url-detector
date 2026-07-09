@@ -1,0 +1,57 @@
+column,feature_group,dtype,unique_values
+FILENAME,Other categorical/text features,str,235795
+URL,URL structure features,str,235370
+URLLength,URL structure features,int64,482
+Domain,Domain-related features,str,220086
+DomainLength,Domain-related features,int64,101
+IsDomainIP,Domain-related features,int64,2
+TLD,Domain-related features,str,695
+URLSimilarityIndex,URL structure features,float64,36360
+CharContinuationRate,Character-based features,float64,898
+TLDLegitimateProb,Domain-related features,float64,465
+URLCharProb,URL structure features,float64,227421
+TLDLength,Domain-related features,int64,12
+NoOfSubDomain,URL structure features,int64,10
+HasObfuscation,URL structure features,int64,2
+NoOfObfuscatedChar,URL structure features,int64,20
+ObfuscationRatio,URL structure features,float64,146
+NoOfLettersInURL,URL structure features,int64,421
+LetterRatioInURL,URL structure features,float64,709
+NoOfDegitsInURL,URL structure features,int64,182
+DegitRatioInURL,URL structure features,float64,575
+NoOfEqualsInURL,URL structure features,int64,25
+NoOfQMarkInURL,URL structure features,int64,5
+NoOfAmpersandInURL,URL structure features,int64,31
+NoOfOtherSpecialCharsInURL,URL structure features,int64,74
+SpacialCharRatioInURL,URL structure features,float64,240
+IsHTTPS,URL structure features,int64,2
+LineOfCode,Webpage/source-code features,int64,10738
+LargestLineLength,Character-based features,int64,26181
+HasTitle,Content/title-related features,int64,2
+Title,Content/title-related features,str,197874
+DomainTitleMatchScore,Domain-related features,float64,152
+URLTitleMatchScore,URL structure features,float64,497
+HasFavicon,Domain-related features,int64,2
+Robots,Domain-related features,int64,2
+IsResponsive,Webpage/source-code features,int64,2
+NoOfURLRedirect,URL structure features,int64,2
+NoOfSelfRedirect,URL structure features,int64,2
+HasDescription,Webpage/source-code features,int64,2
+NoOfPopup,Webpage/source-code features,int64,115
+NoOfiFrame,Webpage/source-code features,int64,119
+HasExternalFormSubmit,Webpage/source-code features,int64,2
+HasSocialNet,Content/title-related features,int64,2
+HasSubmitButton,Webpage/source-code features,int64,2
+HasHiddenFields,Webpage/source-code features,int64,2
+HasPasswordField,Webpage/source-code features,int64,2
+Bank,Content/title-related features,int64,2
+Pay,Content/title-related features,int64,2
+Crypto,Content/title-related features,int64,2
+HasCopyrightInfo,Webpage/source-code features,int64,2
+NoOfImage,Webpage/source-code features,int64,992
+NoOfCSS,Webpage/source-code features,int64,209
+NoOfJS,Webpage/source-code features,int64,253
+NoOfSelfRef,URL structure features,int64,1374
+NoOfEmptyRef,URL structure features,int64,296
+NoOfExternalRef,URL structure features,int64,1191
+label,target,int64,2

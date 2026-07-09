@@ -1,0 +1,7 @@
+split,class,count,percentage
+train,0,70661,42.81
+train,1,94395,57.19
+validation,0,15142,42.81
+validation,1,20227,57.19
+test,0,15142,42.81
+test,1,20228,57.19

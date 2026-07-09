@@ -1,0 +1,56 @@
+PhiUSIIL Phishing URL Dataset - Preprocessing Report
+============================================================
+Raw dataset shape: (235795, 56)
+Cleaned dataset shape: (235795, 56)
+Number of duplicates removed: 0
+
+Missing value handling method:
+  - Numeric feature columns: filled with training-split median
+  - Categorical/object feature columns: filled with "unknown"
+  - Target label kept unchanged
+
+Target column used: label
+Class meaning:
+  - 1 = legitimate
+  - 0 = phishing
+
+Final class distribution:
+  - 0: 100,945 rows (42.81%)
+  - 1: 134,850 rows (57.19%)
+
+Encoding method:
+  - Encoders are fitted on the training split only to avoid validation/test vocabulary leakage
+  - One-hot encoding used for training categorical features with <= 20 unique values
+  - Label encoding used for higher-cardinality categorical/text features as a simple placeholder
+  - Unseen validation/test categorical values are encoded as -1
+  - FILENAME: label encoded from training split (165056 training values, high cardinality)
+  - URL: label encoded from training split (164855 training values, high cardinality)
+  - Domain: label encoded from training split (155197 training values, high cardinality)
+  - TLD: label encoded from training split (644 training values, high cardinality)
+  - Title: label encoded from training split (139405 training values, high cardinality)
+
+Train size: 165,056 rows
+Validation size: 35,369 rows
+Test size: 35,370 rows
+
+Train/validation/test class distributions:
+  - train:
+      class 0: 70,661 rows (42.81%)
+      class 1: 94,395 rows (57.19%)
+  - validation:
+      class 0: 15,142 rows (42.81%)
+      class 1: 20,227 rows (57.19%)
+  - test:
+      class 0: 15,142 rows (42.81%)
+      class 1: 20,228 rows (57.19%)
+
+Output file paths:
+  - Cleaned dataset: /Users/mac/Work/Study/Project-Masters/ml-phishing-url-detector/data/processed/cleaned_dataset.csv
+  - Train split: /Users/mac/Work/Study/Project-Masters/ml-phishing-url-detector/data/processed/train.csv
+  - Validation split: /Users/mac/Work/Study/Project-Masters/ml-phishing-url-detector/data/processed/validation.csv
+  - Test split: /Users/mac/Work/Study/Project-Masters/ml-phishing-url-detector/data/processed/test.csv
+  - Split distribution table: /Users/mac/Work/Study/Project-Masters/ml-phishing-url-detector/reports/eda/tables/split_distribution.csv
+
+Preprocessing note:
+  No scaling, model training, SHAP explanations, transformer embeddings, or model files were created.
+  High-cardinality label encoding is for pre-IPR dataset preparation only; later modelling should replace it with a fitted sklearn preprocessing pipeline or text/URL feature extraction.
