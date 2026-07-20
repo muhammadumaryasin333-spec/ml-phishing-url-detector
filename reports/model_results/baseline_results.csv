@@ -1,0 +1,7 @@
+model_name,dataset_split,accuracy,precision,recall,f1_score,roc_auc
+logistic_regression,validation,0.999915,0.999926,0.999901,0.999913,1.000000
+logistic_regression,test,0.999859,0.999876,0.999835,0.999856,1.000000
+decision_tree,validation,1.000000,1.000000,1.000000,1.000000,1.000000
+decision_tree,test,1.000000,1.000000,1.000000,1.000000,1.000000
+random_forest,validation,1.000000,1.000000,1.000000,1.000000,1.000000
+random_forest,test,1.000000,1.000000,1.000000,1.000000,1.000000

@@ -2,7 +2,7 @@
 
 Explainable phishing URL and website detection using machine learning, transformer-based features, and SHAP explanations.
 
-MSc Cybersecurity project. This repository currently contains the initial project scaffold only — the ML pipeline is not implemented yet.
+MSc Cybersecurity project. This repository contains completed EDA, preprocessing, and Week 5 baseline model training; advanced models and explainability work remain pending.
 
 ## Description
 
@@ -108,22 +108,51 @@ reports/eda/tables/
 data/processed/
 ```
 
+## Week 5 Progress: Baseline Model Training
+
+- Started baseline model training after EDA and preprocessing.
+- Trained Logistic Regression, Decision Tree, and Random Forest.
+- Evaluated models using accuracy, precision, recall, F1-score, confusion matrix, and ROC-AUC.
+- Saved baseline results in `reports/model_results/`.
+- Saved baseline model files in `models/baseline/`.
+- Uses the Python training script only; no Jupyter notebook is required.
+- Advanced models, transformers, SHAP, and the demo app are not included in this week.
+
+Run baseline training:
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+
+python src/train_baseline_models.py
+```
+
+Expected outputs:
+
+```text
+reports/model_results/baseline_results.csv
+reports/model_results/baseline_training_report.md
+reports/model_results/confusion_matrices/
+reports/model_results/roc_curves/
+models/baseline/
+```
+
 ## Progress Tracker
 
 - [x] Initial repo setup
 - [x] Dataset download
 - [x] Data exploration
 - [x] Preprocessing preparation
-- [ ] Baseline ML models
-- [ ] Evaluation metrics
+- [x] Baseline ML models
+- [x] Evaluation metrics
 - [ ] SHAP explainability
 - [ ] Demo app
 
 ## Next Steps
 
-1. Review pre-IPR EDA outputs and select modelling features.
+1. Audit highly target-separative baseline features before making generalisation claims.
 2. Replace placeholder high-cardinality label encoding with a fitted preprocessing pipeline or URL/text feature extraction.
-3. Train baseline ML models and record evaluation metrics in `reports/`.
+3. Compare advanced models against the Week 5 baseline in a later stage.
 4. Add transformer-based features and SHAP explanations.
 5. Wrap the best model in a demo app under `app/`.
 
