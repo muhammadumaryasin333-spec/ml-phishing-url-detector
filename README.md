@@ -115,7 +115,9 @@ data/processed/
 - Evaluated models using accuracy, precision, recall, F1-score, confusion matrix, and ROC-AUC.
 - Saved baseline results in `reports/model_results/`.
 - Saved baseline model files in `models/baseline/`.
+- Completed feature ablation with and without URLSimilarityIndex; saved the audit in `reports/model_results/feature_ablation/`.
 - Uses the Python training script only; no Jupyter notebook is required.
+- Next step: train stronger models and compare them with the baseline results.
 - Advanced models, transformers, SHAP, and the demo app are not included in this week.
 
 Run baseline training:

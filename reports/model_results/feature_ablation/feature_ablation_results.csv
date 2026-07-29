@@ -1,0 +1,13 @@
+ablation_condition,removed_features,feature_count,model_name,dataset_split,accuracy,precision,recall,f1_score,roc_auc
+with_url_similarity_index,,51,logistic_regression,validation,0.999915,0.999926,0.999901,0.999913,1.000000
+with_url_similarity_index,,51,logistic_regression,test,0.999859,0.999876,0.999835,0.999856,1.000000
+with_url_similarity_index,,51,decision_tree,validation,1.000000,1.000000,1.000000,1.000000,1.000000
+with_url_similarity_index,,51,decision_tree,test,1.000000,1.000000,1.000000,1.000000,1.000000
+with_url_similarity_index,,51,random_forest,validation,1.000000,1.000000,1.000000,1.000000,1.000000
+with_url_similarity_index,,51,random_forest,test,1.000000,1.000000,1.000000,1.000000,1.000000
+without_url_similarity_index,URLSimilarityIndex,50,logistic_regression,validation,0.999265,0.999233,0.999266,0.999249,0.999993
+without_url_similarity_index,URLSimilarityIndex,50,logistic_regression,test,0.999350,0.999365,0.999307,0.999336,0.999997
+without_url_similarity_index,URLSimilarityIndex,50,decision_tree,validation,0.999039,0.998969,0.999068,0.999019,0.999068
+without_url_similarity_index,URLSimilarityIndex,50,decision_tree,test,0.998813,0.998771,0.998804,0.998788,0.998804
+without_url_similarity_index,URLSimilarityIndex,50,random_forest,validation,0.999887,0.999893,0.999876,0.999885,1.000000
+without_url_similarity_index,URLSimilarityIndex,50,random_forest,test,0.999802,0.999802,0.999794,0.999798,1.000000
