@@ -2,7 +2,7 @@
 
 Explainable phishing URL and website detection using machine learning, transformer-based features, and SHAP explanations.
 
-MSc Cybersecurity project. This repository contains completed EDA, preprocessing, and Week 5 baseline model training; advanced models and explainability work remain pending.
+MSc Cybersecurity project. EDA, preprocessing, baseline modelling, leakage auditing, and Week 6 XGBoost/LightGBM comparison are complete; transformer and explainability work remain pending.
 
 ## Description
 
@@ -147,15 +147,55 @@ models/baseline/
 - [x] Preprocessing preparation
 - [x] Baseline ML models
 - [x] Evaluation metrics
+- [x] Wider leakage and target-proxy audit
+- [x] Domain-group-disjoint evaluation protocol
+- [x] XGBoost and LightGBM comparison
 - [ ] SHAP explainability
 - [ ] Demo app
 
+## Week 6 Progress: Leakage Audit and Advanced Models
+
+- Replaced the legacy row-random evaluation protocol for new experiments with
+  normalized-host-group-disjoint 70/15/15 splits.
+- Verified zero normalized-host and exact-URL overlap across audited splits.
+- Quarantined `URLSimilarityIndex`, `CharContinuationRate`,
+  `TLDLegitimateProb`, and `URLCharProb` from primary Week 6 modelling.
+- Retained raw `TLD` as categorical data with train-fitted one-hot encoding.
+- Retrained Logistic Regression, Decision Tree, and Random Forest under the
+  audited protocol.
+- Completed bounded validation-only tuning for XGBoost and LightGBM.
+- Evaluated each locked model once on the frozen audited test split.
+- Best audited test macro F1: LightGBM, 0.999971. This is dataset-specific
+  evidence, not deployment or cross-dataset generalisation evidence.
+
+Run the Week 6 workflow:
+
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+
+python src/run_leakage_audit.py
+python src/train_advanced_models.py
+```
+
+Key outputs:
+
+```text
+data/processed/audited/
+reports/model_results/leakage_audit/
+reports/model_results/advanced_tuning_results.csv
+reports/model_results/advanced_results.csv
+reports/model_results/model_comparison.csv
+reports/model_results/advanced_training_report.md
+models/advanced/
+models/audited_baseline/
+```
+
 ## Next Steps
 
-1. Audit highly target-separative baseline features before making generalisation claims.
-2. Replace placeholder high-cardinality label encoding with a fitted preprocessing pipeline or URL/text feature extraction.
-3. Compare advanced models against the Week 5 baseline in a later stage.
-4. Add transformer-based features and SHAP explanations.
-5. Wrap the best model in a demo app under `app/`.
+1. Run the Week 7 transformer or lightweight URL-sequence feature experiment using raw URL strings and the audited split membership.
+2. Compare URL-text representations against the audited tabular models without using the frozen test set for model selection.
+3. Add SHAP explanations to the best audited model.
+4. Wrap the final audited model in a demo app under `app/`.
 
-> Heavier dependencies (transformers, torch, xgboost, lightgbm, shap, streamlit) will be added to `requirements.txt` as each stage requires them.
+> XGBoost and LightGBM are pinned for Week 6. Transformer, SHAP, and demo dependencies will be added only when their stages begin.

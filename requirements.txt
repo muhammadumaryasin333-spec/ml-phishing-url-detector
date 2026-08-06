@@ -5,3 +5,5 @@ joblib
 matplotlib
 seaborn
 python-dotenv
+xgboost==3.2.0
+lightgbm==4.7.0

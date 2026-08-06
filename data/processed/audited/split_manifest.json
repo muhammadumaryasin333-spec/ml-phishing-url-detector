@@ -1,0 +1,78 @@
+{
+  "fold_assignment": {
+    "test": [
+      17,
+      18,
+      19
+    ],
+    "train": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "validation": [
+      14,
+      15,
+      16
+    ]
+  },
+  "fold_count": 20,
+  "group_column": "Domain",
+  "group_normalization": "urlsplit_hostname_casefold_strip_trailing_dot_idna_canonicalize_ip_remove_one_www_prefix",
+  "identifier_columns_excluded": [
+    "Domain",
+    "FILENAME",
+    "Title",
+    "URL"
+  ],
+  "protocol": "stratified_normalized_host_group_70_15_15",
+  "quarantined_features": [
+    "CharContinuationRate",
+    "TLDLegitimateProb",
+    "URLCharProb",
+    "URLSimilarityIndex"
+  ],
+  "random_state": 42,
+  "source_path": "data/raw/PhiUSIIL_Phishing_URL_Dataset.csv",
+  "source_sha256": "a236549cd369cd80bd478ff8e1779cbf44c58d5c3f79f7a51a1adbed7d06d1c6",
+  "splits": {
+    "test": {
+      "class_counts": {
+        "0": 15142,
+        "1": 20229
+      },
+      "domains": 32547,
+      "membership_sha256": "4c0562702c7aff4277150a40c3d3bcaac6ee1837133ca99296f6cffd1faee66b",
+      "rows": 35371
+    },
+    "train": {
+      "class_counts": {
+        "0": 70662,
+        "1": 94393
+      },
+      "domains": 153614,
+      "membership_sha256": "2d737759cf8f9d431ec75932dfb47325bfe416b3c30a280b5c4befb3373c2661",
+      "rows": 165055
+    },
+    "validation": {
+      "class_counts": {
+        "0": 15141,
+        "1": 20228
+      },
+      "domains": 32933,
+      "membership_sha256": "86b38ab4324c084ebbade76a046fdc0912fe4cb5312fe1c31c8745a7c3e4763c",
+      "rows": 35369
+    }
+  }
+}

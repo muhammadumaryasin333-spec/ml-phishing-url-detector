@@ -1,0 +1,7 @@
+entity,left_split,right_split,shared_unique_values,right_rows_with_overlap,right_overlap_percentage
+URL,train,validation,87,87,0.245978
+URL,train,test,90,90,0.254453
+URL,validation,test,26,26,0.073509
+Domain,train,validation,1672,2936,8.301055
+Domain,train,test,1684,2882,8.148148
+Domain,validation,test,588,1695,4.792197
