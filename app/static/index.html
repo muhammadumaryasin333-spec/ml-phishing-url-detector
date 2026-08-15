@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explainable multi-model phishing URL analysis.">
+    <title>Explainable Phishing URL and Website Detection</title>
+    <link rel="stylesheet" href="/static/styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="Project home"><span aria-hidden="true">P</span>Phishing URL Detector</a>
+      <p><i aria-hidden="true"></i>Models ready</p>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <header>
+          <p class="eyebrow">Interactive project demo</p>
+          <h1 id="page-title">Explainable Phishing URL <em>and Website Detection</em></h1>
+          <p>Analyse a URL with trained machine-learning models. Understand the verdict, disagreement, and evidence behind every result.</p>
+        </header>
+
+        <form id="analysis-form" novalidate>
+          <label for="url-input">URL
+            <input id="url-input" name="url" type="text" inputmode="url" autocomplete="off" spellcheck="false" maxlength="2048" placeholder="https://example.com/account" aria-describedby="url-help form-error" required>
+          </label>
+          <label for="model-select">Model
+            <select id="model-select" name="model" aria-describedby="model-help"><option value="automatic">Automatic consensus</option></select>
+          </label>
+          <button id="analyze-button" type="submit">Analyse URL</button>
+        </form>
+
+        <aside class="form-notes">
+          <p id="url-help">Public HTTP/S URLs only. Private networks and unsafe redirects are blocked.</p>
+          <p id="model-help">Loading model inventory…</p>
+        </aside>
+        <p id="form-error" class="form-error" role="alert" hidden></p>
+
+        <nav class="samples" aria-label="Sample URLs">
+          <span>Try a sample</span>
+          <button type="button" data-url="https://www.google.com/">Google</button>
+          <button type="button" data-url="https://github.com/">GitHub</button>
+          <button type="button" data-url="https://www.python.org/">Python</button>
+          <button type="button" data-url="http://auth[.]gg" data-model="tfidf">Defanged historical URL</button>
+        </nav>
+
+        <footer><span>Guarded retrieval</span><span>No JavaScript execution</span><span>Abstains when evidence conflicts</span></footer>
+      </section>
+
+      <section id="report" class="report" aria-labelledby="result-title" hidden>
+        <header>
+          <p class="eyebrow">Analysis report</p>
+          <h2 id="result-title">Evidence and verdict</h2>
+          <p id="result-summary"></p>
+          <strong id="result-status" class="result-status neutral">Not analysed</strong>
+        </header>
+        <article id="result-content"></article>
+      </section>
+
+      <aside class="limitations" aria-label="Important limitations">
+        <p><strong>Decision support</strong>A label is not proof. Verify the domain and context.</p>
+        <p><strong>Dataset estimate</strong>Scores are not calibrated real-world probabilities.</p>
+        <p><strong>Bounded evidence</strong>No sender, reputation, domain-age, or JavaScript analysis.</p>
+      </aside>
+    </main>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>

@@ -1,201 +1,128 @@
-# Explainable Phishing URL and Website Detection
+# Explainable Phishing URL Detector
 
-Explainable phishing URL and website detection using machine learning, transformer-based features, and SHAP explanations.
+Project for phishing detection using leakage-audited machine learning, URL-text experiments, SHAP explanations, and a local FastAPI demo.
 
-MSc Cybersecurity project. EDA, preprocessing, baseline modelling, leakage auditing, and Week 6 XGBoost/LightGBM comparison are complete; transformer and explainability work remain pending.
+The project uses the [UCI PhiUSIIL Phishing URL Dataset](https://archive.ics.uci.edu/dataset/967/phiusil-phishing-url-dataset): 235,795 records, with label `0` for phishing and `1` for legitimate. Results are strong on this dataset but are not evidence of real-world, temporal, or cross-dataset performance.
 
-## Description
+## What is included
 
-This project aims to detect phishing URLs and websites using machine learning. Beyond raw classification accuracy, the focus is on **explainability**: combining transformer-based feature representations with SHAP explanations so that model predictions can be interpreted and trusted in a security context.
+- Exploratory data analysis and reproducible preprocessing.
+- Wider leakage and target-proxy audit.
+- Normalized-host-group-disjoint train/validation/test protocol.
+- Audited Logistic Regression, Decision Tree, Random Forest, XGBoost, and LightGBM models.
+- Raw URL character TF-IDF and pinned MiniLM embedding experiments.
+- Global and local SHAP explanations for the audited LightGBM model.
+- FastAPI plus vanilla HTML/CSS/JavaScript demo with model switching, guarded live-page extraction, and uncertainty reporting.
+- Reproducibility manifests, saved metrics, plots, model hashes, and final report.
 
-## Repository Structure
+## Evaluation design
 
-```
-.
-├── README.md            # Project overview and progress tracking
-├── requirements.txt     # Starter Python dependencies
-├── .gitignore           # Python, venv, datasets, reports, models
-├── data/
-│   ├── raw/             # Original, immutable datasets
-│   └── processed/       # Cleaned / feature-engineered datasets
-├── notebooks/           # Reserved folder; current workflow uses Python scripts
-├── src/                 # Source code (Python package)
-│   └── __init__.py
-├── models/              # Trained model artifacts
-├── reports/             # Generated figures, metrics, results
-├── app/                 # Demo application
-└── tests/               # Unit / integration tests
-```
+The current protocol creates deterministic 70/15/15 splits grouped by normalized hostname. It asserts zero normalized-host and exact-URL overlap across splits. Model and preprocessing choices use train and validation only; each locked configuration is evaluated once on the frozen test set.
 
-## Setup Instructions
+Four unresolved derived features are quarantined from primary tabular modelling: `URLSimilarityIndex`, `CharContinuationRate`, `TLDLegitimateProb`, and `URLCharProb`. Raw identifiers and text are excluded from tabular models. Host grouping does not merge sibling subdomains under one registered domain, which remains a limitation.
 
-```bash
-# 1. Clone and enter the project
-cd ml-phishing-url-detector
+## Main results
 
-# 2. Create a virtual environment
-python3 -m venv venv
+All rows below use the same 35,371-row audited test split. Input scopes differ, so tabular and URL-only scores are descriptive rather than interchangeable.
 
-# 3. Activate it
-source venv/bin/activate        # macOS / Linux
-# venv\Scripts\activate         # Windows (PowerShell/CMD)
+| Model | Input | Macro F1 | ROC-AUC | Phishing recall |
+| --- | --- | ---: | ---: | ---: |
+| LightGBM | URL and webpage-derived tabular features | 0.999971 | 1.000000 | 0.999934 |
+| XGBoost | URL and webpage-derived tabular features | 0.999913 | 1.000000 | 0.999934 |
+| Character TF-IDF + Logistic Regression | Raw URL only | 0.997747 | 0.999446 | 0.994849 |
+| MiniLM embeddings + Logistic Regression | Raw URL only | 0.980200 | 0.996591 | 0.972395 |
 
-# 4. Upgrade pip and install dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
+LightGBM is the strongest dataset experiment. The demo can approximate its 47 required inputs through a guarded HTML request, but the dataset authors did not publish an executable extraction contract. Live page-model scores are therefore useful comparisons, not equivalent reproductions of dataset evaluation.
 
-```
+SHAP analysis identifies `LineOfCode`, `IsHTTPS`, `NoOfSelfRef`, `NoOfImage`, and `NoOfOtherSpecialCharsInURL` as the highest mean-absolute attribution groups in the sampled audited test cohort. These are model attributions, not causal explanations. Several webpage-volume features are highly separable in this corpus and may reflect collection bias.
 
-To deactivate the environment when done:
+## Setup
+
+Python 3.11 is the recorded environment.
 
 ```bash
-deactivate
+python3.11 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```
 
-## Week 2 Progress
+Place `PhiUSIIL_Phishing_URL_Dataset.csv` in `data/raw/` if it is not already available. Raw data, processed data, model bundles, and embedding caches are intentionally ignored by Git.
 
-- Dataset source identified: **PhiUSIIL Phishing URL Dataset** from the UCI Machine Learning Repository.
-- Dataset download location prepared: `data/raw/`
-- Basic data exploration script added: `src/data_exploration.py`
-- Dataset summary and class distribution output planned in `reports/`
-- No ML model training yet.
+## Run the demo
 
-### How to run dataset exploration
-
-First download the PhiUSIIL Phishing URL Dataset from the UCI ML Repository and place the CSV at `data/raw/PhiUSIIL_Phishing_URL_Dataset.csv`. Then:
+The demo expects saved artifacts under `models/advanced/`, `models/audited_baseline/`, and `models/url_text/`.
 
 ```bash
 source .venv/bin/activate
-pip install -r requirements.txt
+uvicorn app.main:app --host 127.0.0.1 --port 8000
+```
+
+Open `http://127.0.0.1:8000`. The dropdown contains seven clearly named models: TF-IDF, MiniLM, Logistic Regression, Decision Tree, Random Forest, XGBoost, and LightGBM. Automatic and Compare All are convenience modes, not additional models. Only host-separated, leakage-audited tabular models are exposed.
+
+Live analysis performs one bounded server-side HTML fetch. It blocks private, loopback, link-local, reserved, and mixed public/private DNS answers; pins the validated IP; revalidates redirects; accepts only standard HTTP/S ports and HTML; limits redirects and compressed/decompressed body size; and never executes JavaScript. This reduces SSRF risk but does not make the demo suitable for public internet deployment.
+
+API example:
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/analyze \
+  -H 'Content-Type: application/json' \
+  --data '{"url":"https://www.google.com/","model":"automatic","deep_scan":true}'
+```
+
+Returned scores are dataset model outputs, not calibrated real-world risk percentages. A prediction is a signal, not proof that a site is safe or malicious.
+
+## Reproduce the pipeline
+
+These commands are intentionally separate because later stages are expensive and refuse to overwrite artifacts unless their explicit replacement option is supplied.
+
+```bash
 python src/data_exploration.py
-```
-
-Outputs:
-
-- `reports/dataset_summary.txt`
-- `reports/class_distribution.png`
-
-## Pre-IPR EDA and Preprocessing Progress
-
-- Dataset downloaded and added at `data/raw/PhiUSIIL_Phishing_URL_Dataset.csv`
-- Initial exploration completed
-- Complete EDA script added: `src/eda_analysis.py`
-- Class distribution charts generated
-- Correlation heatmap generated
-- Missing values and duplicate checks completed
-- Outlier summary prepared
-- Feature grouping prepared
-- Cleaned dataset generated
-- Train/validation/test split prepared
-- No model training yet
-
-Run the pre-IPR workflow:
-
-```bash
-source .venv/bin/activate
-pip install -r requirements.txt
-
 python src/eda_analysis.py
 python src/preprocess_data.py
-```
-
-Output locations:
-
-```text
-reports/eda/
-reports/eda/figures/
-reports/eda/tables/
-data/processed/
-```
-
-## Week 5 Progress: Baseline Model Training
-
-- Started baseline model training after EDA and preprocessing.
-- Trained Logistic Regression, Decision Tree, and Random Forest.
-- Evaluated models using accuracy, precision, recall, F1-score, confusion matrix, and ROC-AUC.
-- Saved baseline results in `reports/model_results/`.
-- Saved baseline model files in `models/baseline/`.
-- Completed feature ablation with and without URLSimilarityIndex; saved the audit in `reports/model_results/feature_ablation/`.
-- Uses the Python training script only; no Jupyter notebook is required.
-- Next step: train stronger models and compare them with the baseline results.
-- Advanced models, transformers, SHAP, and the demo app are not included in this week.
-
-Run baseline training:
-
-```bash
-source .venv/bin/activate
-pip install -r requirements.txt
-
 python src/train_baseline_models.py
-```
-
-Expected outputs:
-
-```text
-reports/model_results/baseline_results.csv
-reports/model_results/baseline_training_report.md
-reports/model_results/confusion_matrices/
-reports/model_results/roc_curves/
-models/baseline/
-```
-
-## Progress Tracker
-
-- [x] Initial repo setup
-- [x] Dataset download
-- [x] Data exploration
-- [x] Preprocessing preparation
-- [x] Baseline ML models
-- [x] Evaluation metrics
-- [x] Wider leakage and target-proxy audit
-- [x] Domain-group-disjoint evaluation protocol
-- [x] XGBoost and LightGBM comparison
-- [ ] SHAP explainability
-- [ ] Demo app
-
-## Week 6 Progress: Leakage Audit and Advanced Models
-
-- Replaced the legacy row-random evaluation protocol for new experiments with
-  normalized-host-group-disjoint 70/15/15 splits.
-- Verified zero normalized-host and exact-URL overlap across audited splits.
-- Quarantined `URLSimilarityIndex`, `CharContinuationRate`,
-  `TLDLegitimateProb`, and `URLCharProb` from primary Week 6 modelling.
-- Retained raw `TLD` as categorical data with train-fitted one-hot encoding.
-- Retrained Logistic Regression, Decision Tree, and Random Forest under the
-  audited protocol.
-- Completed bounded validation-only tuning for XGBoost and LightGBM.
-- Evaluated each locked model once on the frozen audited test split.
-- Best audited test macro F1: LightGBM, 0.999971. This is dataset-specific
-  evidence, not deployment or cross-dataset generalisation evidence.
-
-Run the Week 6 workflow:
-
-```bash
-source .venv/bin/activate
-pip install -r requirements.txt
-
 python src/run_leakage_audit.py
 python src/train_advanced_models.py
+python src/train_url_text_models.py
+python src/generate_explanations.py
 ```
 
-Key outputs:
+`train_url_text_models.py` downloads the pinned `sentence-transformers/all-MiniLM-L6-v2` revision on its first full run. The URL-text manifests record revision, versions, hashes, timing, and cache alignment evidence.
+
+## Verification
+
+```bash
+python -m compileall -q app src
+node --check app/static/app.js
+python -m pip check
+```
+
+## Repository map
 
 ```text
-data/processed/audited/
-reports/model_results/leakage_audit/
-reports/model_results/advanced_tuning_results.csv
-reports/model_results/advanced_results.csv
-reports/model_results/model_comparison.csv
-reports/model_results/advanced_training_report.md
-models/advanced/
-models/audited_baseline/
+app/                                  FastAPI service and responsive web UI
+data/processed/audited/               Group-disjoint split data and manifest
+models/advanced/                      XGBoost and LightGBM bundles
+models/audited_baseline/               Group-audited classical model bundles
+models/url_text/                      URL-only model bundles and manifests
+reports/eda/                          EDA evidence
+reports/model_results/                Leakage audit and model comparisons
+reports/transformer_experiments/      URL-text tuning and locked test results
+reports/explainability/               SHAP global/local evidence
+reports/final_report.pdf              Submission-ready report
+src/                                  Reproducible data, training, and explanation scripts
 ```
 
-## Next Steps
+## Limitations and responsible use
 
-1. Run the Week 7 transformer or lightweight URL-sequence feature experiment using raw URL strings and the audited split membership.
-2. Compare URL-text representations against the audited tabular models without using the frozen test set for model selection.
-3. Add SHAP explanations to the best audited model.
-4. Wrap the final audited model in a demo app under `app/`.
+- Single static dataset; no temporal or independent external evaluation.
+- Normalized-host grouping is weaker than registered-domain grouping.
+- Near-perfect tabular scores may partly reflect dataset construction and webpage-feature proxies.
+- URL-text models can produce severe false positives: TF-IDF scored GitHub as phishing in a live check.
+- The live extractor approximates seven semantic fields because no executable reference implementation was published.
+- Automatic mode abstains as `uncertain` when scores are near the threshold, models disagree, or a requested live scan fails. It is not score calibration.
+- Live checks on 16 August 2026 labelled Google and Python.org legitimate, while GitHub remained uncertain because the tree models disagreed sharply.
+- Demo does not inspect sender context, domain reputation, JavaScript-rendered content, domain age, or newly registered-domain feeds.
+- Do not use this educational prototype as a browser security control or sole basis for blocking, reporting, or entering credentials.
 
-> XGBoost and LightGBM are pinned for Week 6. Transformer, SHAP, and demo dependencies will be added only when their stages begin.
+Dataset citation: Prasad and Chandra, “PhiUSIIL: A diverse security profile empowered phishing URL detection framework based on similarity index and incremental learning,” *Computers & Security*, 2024. Dataset licence: CC BY 4.0.

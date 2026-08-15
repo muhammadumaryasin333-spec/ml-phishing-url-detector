@@ -1,0 +1,60 @@
+{
+  "additivity": {
+    "maximum_absolute_error": 1.278732142395711e-08,
+    "space": "phishing_probability",
+    "tolerance": 1e-06
+  },
+  "class_semantics": {
+    "conversion": "phishing_base=1-legitimate_base; phishing_shap=-legitimate_shap",
+    "explainer_output": "legitimate probability (class 1)",
+    "reported_output": "phishing probability (class 0)"
+  },
+  "feature_counts": {
+    "aggregated": 47,
+    "input": 47,
+    "transformed": 709
+  },
+  "input_feature_names_sha256": "fd2444a0f5c5c3df9a69ecaffccec14a7fc60d766fd2589216f78a43423c40b0",
+  "model_bundle_sha256": "5ae16b26fbc3b73d023039e10a9c4c8d2e2e596b898d5746ce988a75f9c14718",
+  "model_manifest_sha256": "a54c6cea31d67890d70357375014e7244fcc60f32fa114e465df1093228620f2",
+  "model_name": "lightgbm",
+  "privacy": "Raw URLs and unredacted row identifiers are not written.",
+  "quarantined_features_sha256": "7e4ddc75847eb924684958aafdcf2cac2d18710fbf197f3e8526b8eb62e43663",
+  "sampling": {
+    "background": {
+      "membership_sha256": "ca408cc04fd0db041d0910c0c4e8df06ef3a906a2fcdb7b6a6f8f96bef638f02",
+      "rows": 128,
+      "seed": 42,
+      "source": "train_plus_validation"
+    },
+    "explanation": {
+      "membership_sha256": "5a89e0c3ea959c63c5810685ad17b49e63a2ea44ca92073c2603146015307162",
+      "rows": 256,
+      "seed": 43,
+      "source": "frozen_test_after_model_lock"
+    },
+    "local_cases": [
+      {
+        "case_id": "representative_phishing",
+        "local_position": 108
+      },
+      {
+        "case_id": "representative_legitimate",
+        "local_position": 0
+      },
+      {
+        "case_id": "closest_to_boundary",
+        "local_position": 7
+      }
+    ]
+  },
+  "split_manifest_sha256": "ff930da95be7cf3e9ae15e0e4296cc7d959f1d9f1d75e22d714ba199f74183d1",
+  "versions": {
+    "lightgbm": "4.7.0",
+    "numpy": "2.4.6",
+    "pandas": "3.0.4",
+    "python": "3.11.15",
+    "scikit_learn": "1.9.0",
+    "shap": "0.51.0"
+  }
+}
