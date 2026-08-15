@@ -14,19 +14,20 @@ import sys
 
 
 def main() -> int:
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 2:
         return 2
     os.environ.setdefault("HF_HUB_OFFLINE", "1")
     os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
     from sentence_transformers import SentenceTransformer
 
-    model_id, revision, cache_folder = sys.argv[1:]
+    model_path = Path(sys.argv[1])
+    if not model_path.is_dir():
+        return 2
     encoder = SentenceTransformer(
-        model_id,
-        revision=revision,
-        cache_folder=str(Path(cache_folder)),
+        str(model_path),
         trust_remote_code=False,
         device="cpu",
+        local_files_only=True,
     )
     print(json.dumps({"status": "ready"}), flush=True)
     for line in sys.stdin:

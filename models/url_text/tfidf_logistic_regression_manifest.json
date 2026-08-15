@@ -1,0 +1,68 @@
+{
+  "artifacts": {
+    "joblib": {
+      "path": "models/url_text/tfidf_logistic_regression.joblib",
+      "sha256": "e86f150778c8ad06747021294fa76211b7067c9f1f90e83223fd5422002601ee"
+    }
+  },
+  "class_map": {
+    "0": "phishing",
+    "1": "legitimate"
+  },
+  "feature_count": 150000,
+  "fit_seconds": 1.348037374962587,
+  "inputs": {
+    "test": {
+      "path": "data/processed/audited/test.csv",
+      "sha256": "fc04bcf7f0a0a700fcd1dd456b5ac4cd95eb43bd9da504c90ba182edf8a0e599"
+    },
+    "train": {
+      "path": "data/processed/audited/train.csv",
+      "sha256": "5783e1c1a29e30f82a8ffb03af11cc3f34b276d4ecb5ecd25d5c902f81aeb656"
+    },
+    "validation": {
+      "path": "data/processed/audited/validation.csv",
+      "sha256": "94b718ec0c39a4ab843f5c234a182bbfdbdef1846b4678e286ce6603869d2545"
+    }
+  },
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "protocol_id": "stratified_normalized_host_group_70_15_15_v1",
+  "random_state": 42,
+  "representation": "tfidf_logistic_regression",
+  "representation_parameters": {
+    "analyzer": "char_wb",
+    "dtype": "float32",
+    "lowercase": false,
+    "max_features": 150000,
+    "min_df": 2,
+    "ngram_range": [
+      3,
+      5
+    ],
+    "norm": "l2",
+    "sublinear_tf": true
+  },
+  "round_trip_prediction_rows_verified": 256,
+  "run_scope": {
+    "ordered_membership_sha256": {
+      "test": "e07dcb93e93010c38a39500eda8f017c1faa3b6aa9ab9dd6dc3c63a32cd4fc2c",
+      "train": "f96aaa734aba873c49a0696bbebb26011f114483df24babc85f3cb1cc09c45d1",
+      "validation": "8bf02fb015e746baac8aebe78e4c4a0368ad88b49d4edf2f4972477e2a47d98f"
+    },
+    "smoke_rows_per_split_max": null
+  },
+  "selected_candidate": {
+    "candidate_id": "tfidf_lr_c_4_00",
+    "parameters": {
+      "C": 4.0
+    }
+  },
+  "split_manifest_sha256": "ff930da95be7cf3e9ae15e0e4296cc7d959f1d9f1d75e22d714ba199f74183d1",
+  "test_predict_seconds": 0.00841083301929757,
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.4",
+    "python": "3.11.15",
+    "scikit_learn": "1.9.0"
+  }
+}

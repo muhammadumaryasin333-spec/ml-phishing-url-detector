@@ -5,6 +5,7 @@ from __future__ import annotations
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
+import hashlib
 import json
 import os
 import select
@@ -89,6 +90,12 @@ MODEL_INFO = (
     ModelInfo("random_forest", "Random Forest", "47 approximate live features"),
 )
 MODEL_INFO_BY_ID = {item.model_id: item for item in MODEL_INFO}
+MINILM_WEIGHTS_SHA256 = "53aa51172d142c89d9012cce15ae4d6cc0ca6895895114379cacb4fab128d9db"
+MINILM_REQUIRED_FILES = (
+    "1_Pooling/config.json", "config.json", "config_sentence_transformers.json",
+    "model.safetensors", "modules.json", "sentence_bert_config.json",
+    "special_tokens_map.json", "tokenizer.json", "tokenizer_config.json", "vocab.txt",
+)
 
 
 def _phishing_probability(classifier: Any, matrix: Any) -> float:
@@ -105,6 +112,15 @@ def _phishing_probability(classifier: Any, matrix: Any) -> float:
     if not 0.0 <= score <= 1.0:
         raise ModelArtifactError("Model returned a probability outside [0, 1].")
     return score
+
+
+def _validate_vendored_minilm(model_path: Path) -> None:
+    if any(not (model_path / relative_path).is_file() for relative_path in MINILM_REQUIRED_FILES):
+        raise ModelArtifactError("Vendored MiniLM model is incomplete.")
+    with (model_path / "model.safetensors").open("rb") as weights:
+        digest = hashlib.file_digest(weights, "sha256").hexdigest()
+    if digest != MINILM_WEIGHTS_SHA256:
+        raise ModelArtifactError("Vendored MiniLM weights failed integrity validation.")
 
 
 class URLTextModelService:
@@ -166,12 +182,12 @@ class URLTextModelService:
 class MiniLMProcessEncoder:
     """Persistent isolated encoder used to avoid native runtime collisions."""
 
-    def __init__(self, model_id: str, revision: str, cache_folder: Path) -> None:
+    def __init__(self, model_path: Path) -> None:
         environment = os.environ.copy()
         environment.setdefault("HF_HUB_OFFLINE", "1")
         environment.setdefault("TRANSFORMERS_OFFLINE", "1")
         self._process = subprocess.Popen(
-            [sys.executable, "-m", "app.minilm_worker", model_id, revision, str(cache_folder)],
+            [sys.executable, "-m", "app.minilm_worker", str(model_path)],
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
@@ -280,11 +296,9 @@ class MultiModelService:
         revision = config.get("revision")
         if not isinstance(model_id, str) or not isinstance(revision, str):
             raise ModelArtifactError("MiniLM bundle is missing its pinned model identity.")
-        encoder = MiniLMProcessEncoder(
-            model_id,
-            revision,
-            models_root / ".cache" / "url_text_embeddings" / "model_files",
-        )
+        vendored_model = models_root / "url_text" / "all-MiniLM-L6-v2"
+        _validate_vendored_minilm(vendored_model)
+        encoder = MiniLMProcessEncoder(vendored_model)
         return cls(tfidf=tfidf, minilm_bundle=minilm_bundle, encoder=encoder, models=models)
 
     @property
