@@ -28,6 +28,27 @@ models/*
 *.pt
 *.pth
 *.onnx
+
+# Inference-only model bundle required by the demo
+!models/advanced/
+models/advanced/*
+!models/advanced/lightgbm.joblib
+!models/advanced/lightgbm_manifest.json
+!models/advanced/xgboost.joblib
+!models/advanced/xgboost_manifest.json
+!models/audited_baseline/
+models/audited_baseline/*
+!models/audited_baseline/logistic_regression.joblib
+!models/audited_baseline/decision_tree.joblib
+!models/audited_baseline/random_forest.joblib
+!models/url_text/
+models/url_text/*
+!models/url_text/tfidf_logistic_regression.joblib
+!models/url_text/tfidf_logistic_regression_manifest.json
+!models/url_text/sentence_transformer_logistic_regression.joblib
+!models/url_text/sentence_transformer_logistic_regression_manifest.json
+!models/url_text/all-MiniLM-L6-v2/
+!models/url_text/all-MiniLM-L6-v2/**
 .patchman-review-mode.json
 
 # IDE / OS

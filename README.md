@@ -47,11 +47,13 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-Place `PhiUSIIL_Phishing_URL_Dataset.csv` in `data/raw/` if it is not already available. Raw data, processed data, model bundles, and embedding caches are intentionally ignored by Git.
+The repository includes every inference-time model artifact required by the demo. Raw data, processed training data, and generated embedding caches remain intentionally ignored because they are needed only for retraining.
+
+Place `PhiUSIIL_Phishing_URL_Dataset.csv` in `data/raw/` only when reproducing the training pipeline.
 
 ## Run the demo
 
-The demo expects saved artifacts under `models/advanced/`, `models/audited_baseline/`, and `models/url_text/`.
+No model download or retraining step is required. A normal clone plus dependency installation is sufficient; the pinned MiniLM encoder and all classifier bundles are versioned under `models/`.
 
 ```bash
 source .venv/bin/activate
@@ -87,7 +89,7 @@ python src/train_url_text_models.py
 python src/generate_explanations.py
 ```
 
-`train_url_text_models.py` downloads the pinned `sentence-transformers/all-MiniLM-L6-v2` revision on its first full run. The URL-text manifests record revision, versions, hashes, timing, and cache alignment evidence.
+`train_url_text_models.py` downloads the pinned `sentence-transformers/all-MiniLM-L6-v2` revision only when reproducing training. Demo inference loads the vendored immutable snapshot from `models/url_text/all-MiniLM-L6-v2/` with network access disabled. The URL-text manifests record revision, versions, hashes, timing, and cache alignment evidence.
 
 ## Verification
 
@@ -104,7 +106,7 @@ app/                                  FastAPI service and responsive web UI
 data/processed/audited/               Group-disjoint split data and manifest
 models/advanced/                      XGBoost and LightGBM bundles
 models/audited_baseline/               Group-audited classical model bundles
-models/url_text/                      URL-only model bundles and manifests
+models/url_text/                      URL-only bundles, manifests, and vendored MiniLM encoder
 reports/eda/                          EDA evidence
 reports/model_results/                Leakage audit and model comparisons
 reports/transformer_experiments/      URL-text tuning and locked test results

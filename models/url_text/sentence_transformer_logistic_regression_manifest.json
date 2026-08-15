@@ -1,0 +1,79 @@
+{
+  "artifacts": {
+    "joblib": {
+      "path": "models/url_text/sentence_transformer_logistic_regression.joblib",
+      "sha256": "eadd27e766b2a7078c7861b006ca279765f2c93288ebd45423661ddfa0bccef6"
+    }
+  },
+  "class_map": {
+    "0": "phishing",
+    "1": "legitimate"
+  },
+  "feature_count": 384,
+  "fit_seconds": 10.609291875036433,
+  "inputs": {
+    "test": {
+      "path": "data/processed/audited/test.csv",
+      "sha256": "fc04bcf7f0a0a700fcd1dd456b5ac4cd95eb43bd9da504c90ba182edf8a0e599"
+    },
+    "train": {
+      "path": "data/processed/audited/train.csv",
+      "sha256": "5783e1c1a29e30f82a8ffb03af11cc3f34b276d4ecb5ecd25d5c902f81aeb656"
+    },
+    "validation": {
+      "path": "data/processed/audited/validation.csv",
+      "sha256": "94b718ec0c39a4ab843f5c234a182bbfdbdef1846b4678e286ce6603869d2545"
+    }
+  },
+  "platform": "macOS-26.5.2-arm64-arm-64bit",
+  "protocol_id": "stratified_normalized_host_group_70_15_15_v1",
+  "random_state": 42,
+  "representation": "sentence_transformer_logistic_regression",
+  "round_trip_prediction_rows_verified": 256,
+  "run_scope": {
+    "ordered_membership_sha256": {
+      "test": "e07dcb93e93010c38a39500eda8f017c1faa3b6aa9ab9dd6dc3c63a32cd4fc2c",
+      "train": "f96aaa734aba873c49a0696bbebb26011f114483df24babc85f3cb1cc09c45d1",
+      "validation": "8bf02fb015e746baac8aebe78e4c4a0368ad88b49d4edf2f4972477e2a47d98f"
+    },
+    "smoke_rows_per_split_max": null
+  },
+  "selected_candidate": {
+    "candidate_id": "sentence_transformer_lr_c_4_00",
+    "parameters": {
+      "C": 4.0
+    }
+  },
+  "sentence_transformer": {
+    "batch_size": 128,
+    "cache_root": "models/.cache/url_text_embeddings",
+    "combined_train_validation_row_ids_sha256": "dc858151705004e5304f20df46e69211e82eb7f0c518fed14448727053198c98",
+    "device": "cpu",
+    "embedding_dimensions": 384,
+    "encoder_max_seq_length": 256,
+    "encoding_seconds": {
+      "test": 24.736993875005282,
+      "train": 111.90886050002882,
+      "validation": 23.826371208007913
+    },
+    "external_weights_required": true,
+    "intended_use": "general sentence and short-paragraph embeddings",
+    "language_scope": "English",
+    "license": "apache-2.0",
+    "max_wordpieces": 256,
+    "model_id": "sentence-transformers/all-MiniLM-L6-v2",
+    "normalize_embeddings": true,
+    "precision": "float32",
+    "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+    "sentence_transformers_version": "5.6.0",
+    "trust_remote_code": false
+  },
+  "split_manifest_sha256": "ff930da95be7cf3e9ae15e0e4296cc7d959f1d9f1d75e22d714ba199f74183d1",
+  "test_predict_seconds": 0.014323708019219339,
+  "versions": {
+    "numpy": "2.4.6",
+    "pandas": "3.0.4",
+    "python": "3.11.15",
+    "scikit_learn": "1.9.0"
+  }
+}
